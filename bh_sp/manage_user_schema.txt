@@ -1,0 +1,19 @@
+CREATE TABLE new_user_table (
+    user_id INT PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    user_sso VARCHAR(100) UNIQUE NOT NULL,
+    start_date_active DATETIME NOT NULL,
+    last_date_active DATETIME NULL,
+    creation_date DATETIME NOT NULL,
+    active CHAR(1) NOT NULL CHECK (active IN ('A', 'I')) -- A = Active, I = Inactive
+);
+
+CREATE TABLE new_user_roles_table (
+    role_id INT PRIMARY KEY,
+    role_name VARCHAR(100) NOT NULL,
+    user_sso VARCHAR(100) NOT NULL,
+    creation_date DATETIME NOT NULL,
+    active CHAR(1) NOT NULL CHECK (active IN ('A', 'I')),
+    FOREIGN KEY (user_sso) REFERENCES new_user_table(user_sso)
+);
